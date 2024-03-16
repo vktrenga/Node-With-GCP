@@ -28,8 +28,7 @@
     - Google Kubernetes Engine
     - Google Cloud Function
     - Google Cloud Run
-
-
+    [More about Compute Services] (comuteServices)
 
 
 
