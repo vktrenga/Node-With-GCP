@@ -28,7 +28,8 @@
     - Google Kubernetes Engine
     - Google Cloud Function
     - Google Cloud Run
-    [More About Compute Services](computeServices)
+        
+[Compute Services](computeServices/README.md)
 
 
 
