@@ -1,40 +1,20 @@
-# postman-tests.yml
-name: Newman Run
+name: Automated API tests using Postman CLI
+
 on:
   pull_request:
     branches:
       - main
-  # types: [closed]
+
 jobs:
-  newman:
-    name: Postman-tests
+  automated-api-tests:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Install Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - name: Install Newman & Reporter
+      - uses: actions/checkout@v3
+      - name: Install Postman CLI
         run: |
-          npm install -g newman
-          npm install -g newman-reporter-htmlextra
-      # Make directory for test results in workspace
-      - name: Make Directory
-        run: mkdir -p newman-results
-      # Run newman cli
-      - name: Run Newman
-        env:
-          POSTMAN_API_URL: 'https://api.getpostman.com/collections'
-          POSTMAN_API_KEY: ${{ secrets.POSTMAN_API_KEY }}
-          POSTMAN_COLLECTION_UID: ${{ secrets.POSTMAN_COLLECTION_UID }}
+          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+      - name: Login to Postman CLI
+        run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
+      - name: Run API tests
         run: |
-          newman run "${{env.POSTMAN_API_URL}}/${{env.POSTMAN_COLLECTION_UID}}?apikey=${{env.POSTMAN_API_KEY}}" \
-          -r htmlextra,cli --reporter-htmlextra-export newman-results/htmlreport.html
-      # Upload test results to workspace
-      - name: Upload Results
-        uses: actions/upload-artifact@v3
-        with:
-          name: Postman_Test_Reports
-          path: newman-results
+          postman collection run "1088160-1b17cd57-4a58-4cf8-af68-4cfb9a1cf1bf" -e "1088160-f7263fbb-af32-4adf-860b-5da58b2f44b6"
