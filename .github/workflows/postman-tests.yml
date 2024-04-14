@@ -30,7 +30,7 @@ jobs:
           POSTMAN_API_KEY: ${{ secrets.POSTMAN_API_KEY }}
           POSTMAN_COLLECTION_UID: ${{ secrets.POSTMAN_COLLECTION_UID }}
         run: |
-          newman run "${{env.POSTMAN_COLLECTION_UID}}?apikey=${{env.POSTMAN_API_KEY}}" \
+          newman run "https://api.getpostman.com/collections/${{env.POSTMAN_COLLECTION_UID}}?apikey=${{env.POSTMAN_API_KEY}}" \
           -r htmlextra,cli --reporter-htmlextra-export newman-results/htmlreport.html
       # Upload test results to workspace
       - name: Upload Results
