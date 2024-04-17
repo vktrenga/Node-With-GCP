@@ -27,6 +27,6 @@
     "dotenv": "^16.4.5",
     "express": "^4.18.3",
     "newman": "^6.1.2",
-    "newman-reporter-htmlextra": "^1.23.1"
+    "newman-reporter-htmlextra": "^1.22.11"
   }
 }
