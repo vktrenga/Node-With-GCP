@@ -31,7 +31,7 @@ jobs:
           POSTMAN_COLLECTION_UID: ${{ secrets.POSTMAN_COLLECTION_UID }}
           delayRequest: 5000
         run: |
-          newman run automation_collection.json --environment="automation_env.json" --reporters cli,junit --reporter-junit-export /etc/newman/api-results.xml
+          newman run automation_collection.json --environment="automation_env.json" 
       # Upload test results to workspace
       - name: Upload Results
         uses: actions/upload-artifact@v3
