@@ -5,7 +5,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 router.get('/hello', function (req, res) {
-  res.send('Hello World Edited!');
+  res.send('Hello World Edited! final with cloud build');
 });
 
 const deliveries = [
