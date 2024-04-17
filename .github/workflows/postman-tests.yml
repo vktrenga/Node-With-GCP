@@ -31,7 +31,7 @@ jobs:
           POSTMAN_COLLECTION_UID: ${{ secrets.POSTMAN_COLLECTION_UID }}
           delayRequest: 5000
         run: |
-          newman run "https://api.getpostman.com/collections/1088160-1b17cd57-4a58-4cf8-af68-4cfb9a1cf1bf?apikey=PMAK-661b7398cf254a0001cbed3f-ef7cf3857f5dd2eda6689b4363cc232ec8" --insecure --global-var "url=http://localhost:3000"
+          newman run automation_collection.json --environment="automation_env.json" --reporters cli,junit --reporter-junit-export /etc/newman/api-results.xml
       # Upload test results to workspace
       - name: Upload Results
         uses: actions/upload-artifact@v3

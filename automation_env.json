@@ -1,0 +1,21 @@
+{
+	"id": "f7263fbb-af32-4adf-860b-5da58b2f44b6",
+	"name": "API Automate Testing",
+	"values": [
+		{
+			"key": "Host",
+			"value": "http://34.41.255.201",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "Version",
+			"value": "v1",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2024-04-17T03:00:26.743Z",
+	"_postman_exported_using": "Postman/10.24.19"
+}
