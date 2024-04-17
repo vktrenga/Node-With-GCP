@@ -1,5 +1,5 @@
 steps:
-  - name: 'API automation with CI and CD'
+  - name: 'gcr.io/cloud-builders/gcloud'
     id: Deploy 
     entrypoint: /bin/sh
     args:
