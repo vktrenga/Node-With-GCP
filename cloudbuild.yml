@@ -1,0 +1,9 @@
+steps:
+  - name: 'API automation with CI and CD'
+    id: Deploy 
+    entrypoint: /bin/sh
+    args:
+      - "c"
+      - |
+        set -x && \
+        gcloud compute ssh instance-20240414-075050 --zone=us-central1-a	--command='/bin/sh home/vktrenga/Node-With-GCP'
