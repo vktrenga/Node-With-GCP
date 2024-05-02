@@ -1,0 +1,302 @@
+{
+	"info": {
+		"_postman_id": "1b17cd57-4a58-4cf8-af68-4cfb9a1cf1bf",
+		"name": "API automate Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1088160"
+	},
+	"item": [
+		{
+			"name": "Get Deliveries",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response is an object with data property\", function () {",
+							"    pm.expect(pm.response.json()).to.be.an('object').that.has.property('data');",
+							"});",
+							"",
+							"pm.test(\"Each element in the data array has id, pickupAddress, pickupPhoneNumber, dropoffAddress, dropoffPhoneNumber, instructions, and status properties\", function () {",
+							"    pm.response.json().data.forEach(function(delivery) {",
+							"        pm.expect(delivery).to.have.property('id');",
+							"        pm.expect(delivery).to.have.property('pickupAddress');",
+							"        pm.expect(delivery).to.have.property('pickupPhoneNumber');",
+							"        pm.expect(delivery).to.have.property('dropoffAddress');",
+							"        pm.expect(delivery).to.have.property('dropoffPhoneNumber');",
+							"        pm.expect(delivery).to.have.property('instructions');",
+							"        pm.expect(delivery).to.have.property('status');",
+							"    });",
+							"});",
+							"var template = `",
+							"<style type=\"text/css\">",
+							"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}",
+							"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}",
+							"    .tftable tr {background-color:#ffffff;}",
+							"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}",
+							"    .tftable tr:hover {background-color:#e0ffff;}",
+							"</style>",
+							"",
+							"<table class=\"tftable\" border=\"1\">",
+							"    <tr>",
+							"        <th>ID</th>",
+							"        <th>Pickup Address</th>",
+							"        <th>Pickup Phone Number</th>",
+							"        <th>Dropoff Address</th>",
+							"        <th>Dropoff Phone Number</th>",
+							"        <th>Instructions</th>",
+							"        <th>Status</th>",
+							"    </tr>",
+							"    ",
+							"    {{#each response.data}}",
+							"        <tr id=row_{{@key}}>",
+							"            <td>{{id}}</td>",
+							"            <td>{{pickupAddress}}</td>",
+							"            <td>{{pickupPhoneNumber}}</td>",
+							"            <td>{{dropoffAddress}}</td>",
+							"            <td>{{dropoffPhoneNumber}}</td>",
+							"            <td>{{instructions}}</td>",
+							"            <td>{{status}}</td>",
+							"        </tr>",
+							"    {{/each}}",
+							"</table>",
+							"`;",
+							"",
+							"function constructVisualizerPayload() {",
+							"   const response =  {response:pm.response.json()}",
+							"   console.log(\"response Data\", JSON.stringify(response));",
+							"   return response;",
+							"}",
+							"",
+							"pm.visualizer.set(template, constructVisualizerPayload());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Host}}/{{Version}}/deliveries?page=1&count=20",
+					"host": [
+						"{{Host}}"
+					],
+					"path": [
+						"{{Version}}",
+						"deliveries"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "count",
+							"value": "20"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Select Delivery",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response content type is application/json\", function () {",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+							"});",
+							"",
+							"",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Host}}/{{Version}}/deliveries/:id/select",
+					"host": [
+						"{{Host}}"
+					],
+					"path": [
+						"{{Version}}",
+						"deliveries",
+						":id",
+						"select"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Confirm Delivery",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Fixed syntax ",
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response Content-Type is application/json\", function () {",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+							"});",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Host}}/{{Version}}/deliveries/:id/confirm-pickup",
+					"host": [
+						"{{Host}}"
+					],
+					"path": [
+						"{{Version}}",
+						"deliveries",
+						":id",
+						"confirm-pickup"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "complete Delivery",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response has the required fields\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData).to.have.property('data');",
+							"    ",
+							"    const data = responseData.data;",
+							"    pm.expect(data).to.have.all.keys('id', 'pickupAddress', 'pickupPhoneNumber', 'dropoffAddress', 'dropoffPhoneNumber', 'instructions', 'status');",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							"pm.test(\"Message is a non-empty string\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Message should not be empty\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Content-Type header is application/json\", function () {",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Host}}/{{Version}}/deliveries/:id/complete",
+					"host": [
+						"{{Host}}"
+					],
+					"path": [
+						"{{Version}}",
+						"deliveries",
+						":id",
+						"complete"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "SELECTED_DELIVERY_ID",
+			"value": ""
+		}
+	]
+}
